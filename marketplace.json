@@ -1,0 +1,16 @@
+{
+  "name": "cyotee",
+  "description": "OpenCode-compatible Claude plugin catalog.",
+  "plugins": [
+    {
+      "name": "hermes-tweet",
+      "description": "X/Twitter research and approval-gated action workflows powered by Xquik.",
+      "version": "0.1.8",
+      "source": {
+        "source": "github",
+        "repo": "Xquik-dev/hermes-tweet",
+        "sha": "52d28943b8c50d4e4df2c21d52a2286c148e1c0e"
+      }
+    }
+  ]
+}

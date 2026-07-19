@@ -20,3 +20,18 @@ test("list with no installs prints a friendly message and exits 0", async () => 
   const prev = process.env.HOME; process.env.HOME = home
   try { expect(await run(["list"])).toBe(0) } finally { process.env.HOME = prev }
 })
+
+test("commands report actionable usage when required targets are missing", async () => {
+  const cases: Array<{ argv: string[]; usage: string }> = [
+    { argv: ["add"], usage: "Usage: opencode-marketplace add <owner/repo|git-url>" },
+    { argv: ["install"], usage: "Usage: opencode-marketplace install <plugin>@<owner/repo|git-url> [--project] [--yes]" },
+    { argv: ["install", "hermes-tweet"], usage: "Usage: opencode-marketplace install <plugin>@<owner/repo|git-url> [--project] [--yes]" },
+    { argv: ["remove"], usage: "Usage: opencode-marketplace remove <plugin>@<marketplace>" },
+  ]
+
+  for (const { argv, usage } of cases) {
+    const errors: string[] = []
+    expect(await run(argv, { reportError: (message) => errors.push(message) })).toBe(1)
+    expect(errors).toEqual([usage])
+  }
+})
